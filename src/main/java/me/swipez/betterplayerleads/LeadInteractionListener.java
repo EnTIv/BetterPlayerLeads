@@ -14,6 +14,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerUnleashEntityEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -41,6 +42,24 @@ public class LeadInteractionListener implements Listener {
             LeadData data = LeadRunnable.data.get(player.getUniqueId());
             data.getVictims().clear();
             data.removeLead(true);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent event) {
+        Player player = event.getPlayer();
+
+        if (LeadRunnable.data.containsKey(player.getUniqueId())) {
+            LeadData data = LeadRunnable.data.get(player.getUniqueId());
+
+            if (data.isLeaded() && data.getOwner() != null) {
+                Player owner = data.getOwner();
+                double distance = player.getLocation().distance(owner.getLocation());
+
+                if (distance > 10) {
+                    data.removeLead(false);
+                }
+            }
         }
     }
 
