@@ -46,24 +46,6 @@ public class LeadInteractionListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerMove(PlayerMoveEvent event) {
-        Player player = event.getPlayer();
-
-        if (LeadRunnable.data.containsKey(player.getUniqueId())) {
-            LeadData data = LeadRunnable.data.get(player.getUniqueId());
-
-            if (data.isLeaded() && data.getOwner() != null) {
-                Player owner = data.getOwner();
-                double distance = player.getLocation().distance(owner.getLocation());
-
-                if (distance > 10) {
-                    data.removeLead(false);
-                }
-            }
-        }
-    }
-
-    @EventHandler
     public void onLeadDamage(HangingBreakByEntityEvent event){
         if (event.getEntity() instanceof LeashHitch hitch){
             if (event.getRemover() instanceof Player player){

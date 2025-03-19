@@ -75,6 +75,12 @@ public class LeadData {
                         desiredLocation = getOwner().getEyeLocation();
                     }
 
+                    double currentDistance = getDataMain().getLocation().distance(desiredLocation);
+
+                    if (currentDistance >= 10) {
+                        removeLead(true);
+                        return;
+                    }
 
                     if (getDataMain().getLocation().distance(desiredLocation) >= pullRange){
                         if (!bouncingBack){
