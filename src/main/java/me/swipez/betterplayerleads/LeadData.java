@@ -78,7 +78,7 @@ public class LeadData {
                     double currentDistance = getDataMain().getLocation().distance(desiredLocation);
 
                     if (currentDistance >= 10) {
-                        removeLead(true);
+                        removeLead(false);
                         return;
                     }
 
