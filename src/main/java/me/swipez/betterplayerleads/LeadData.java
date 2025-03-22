@@ -77,7 +77,7 @@ public class LeadData {
 
                     double currentDistance = getDataMain().getLocation().distance(desiredLocation);
 
-                    if (currentDistance >= 10) {
+                    if (currentDistance >= 9) {
                         removeLead(false);
                         return;
                     }
@@ -94,7 +94,6 @@ public class LeadData {
                                 }
                             }.runTaskLater(BetterPlayerLeads.getPlugin(), 1);
                         }
-
                     }
                 }
                 else {
@@ -131,7 +130,9 @@ public class LeadData {
     public void removeLead(boolean dropItem) {
         if (isVictim()){
             if (dropItem){
-                getDataMain().getWorld().dropItemNaturally(getOwner().getLocation(), new ItemStack(Material.LEAD));
+                if (getOwner() != null) {
+                    getDataMain().getWorld().dropItemNaturally(getOwner().getLocation(), new ItemStack(Material.LEAD));
+                }
             }
             leaded = false;
             posted = false;
